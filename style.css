@@ -90,3 +90,6 @@ form input::placeholder{
 .card.notfound{
     display: flex;
 }
+.card.notfound {
+    flex-direction: column;
+}
