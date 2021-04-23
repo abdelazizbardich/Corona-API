@@ -17,6 +17,7 @@ function fetchApiData(api,callBack){
 function setData(country){
   fetchApiData("https://corona-api.com/countries/"+country,(response,status)=>{
     if(status == 200){
+      getCountryFlag(country);
         response = JSON.parse(response);
         document.querySelector("#title").innerText = response["data"]["name"];
         document.querySelector("#deaths").innerText = response["data"]["latest_data"]["deaths"];
@@ -32,4 +33,16 @@ function setData(country){
         document.querySelector(".card.notfound").style.display = "flex";
     }
 });
+}
+
+function getCountryFlag(country) {
+  document.querySelector(".photo").style.backgroundImage = "url('./assets/img/card.jpg')";
+  fetchApiData("https://restcountries.eu/rest/v2/alpha/"+country,(response,status)=>{
+    if(status == 200){
+      let data = JSON.parse(response);
+      document.querySelector(".photo").style.backgroundImage = "url('"+data['flag']+"')";
+    }else{
+      document.querySelector(".photo").style.backgroundImage = "url('./assets/img/card.jpg')";
+    }
+  });
 }
